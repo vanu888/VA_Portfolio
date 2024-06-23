@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>va_portfolio</title>
+    
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+        }
+        body{
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(45deg,#3a0209,#160d5a,#083268,#3a0209);
+            
+            
+        }
+       
+
+        main {
+            max-width: 1200px;
+            margin: 10px auto 20px auto; 
+            padding: 20px;
+            
+            background: linear-gradient(45deg,#3a0209,#160d5a,#083268,#3a0209);
+            color: #ddd; 
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(208, 219, 231, 0.1);
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        main h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ddd; 
+            border-bottom: 2px solid #dfd5d5;
+            padding-bottom: 10px;
+        }
+
+        main p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+      
+        /* Main content styles */
+
+        main section {
+            margin-bottom: 40px;
+        }
+        .portfolio {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        header {
+            background: #5a0d1a;
+            color: #fff;
+            padding: 2px 2px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgb(1, 250, 250);
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 3px solid #dfd5d5;
+            border-top: 3px solid #dfd5d5;
+            position: sticky;
+            animation: slideDown 0.5s ease-out;
+        }
+        header nav {
+            display: flex;
+            align-items: center;
+            justify-content:space-between;
+            margin-bottom: 5px;
+            color: #ddd; 
+           
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        header nav ul {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            margin: 0 10px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #e60000;
+        }
+        
+        @keyframes slideDown {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        .item {
+            flex: 1 1 300px;
+            background-color: rgba(12, 119, 241, 0.1); 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgb(3, 227, 243);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+        }
+
+        .item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #fff; 
+        }
+
+        .item p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ddd; 
+        }
+
+        .tabs {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(236, 21, 21, 0.5); 
+            padding: 10px 20px;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            transform: translateY(100%);
+            display: flex;
+            justify-content: space-between;
+            opacity: 0;
+        }
+
+        .item:hover .tabs {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .tabs a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .tabs a:hover {
+            color: #e60000;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgb(1, 250, 250);
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+        }
+
+        .popup.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #fff;
+        }
+
+
+        
+
+       
+        .tab-container {
+            display: flex;
+            justify-content: left;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            cursor: pointer;
+            padding: 10px 20px;
+            margin: 0 10px;
+            position: relative;
+            font-size: 1.2rem;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .tab:hover {
+            color: #ddd;
+        }
+
+        .underline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .tab.active .underline {
+            width: 100%;
+        }
+
+        .tab-content {
+            max-width: 600px;
+            background-color:  transparent;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgb(3, 227, 243);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        #contact a{
+            color : #fff;
+        }
+        .quote {
+            position: relative;
+            max-width: auto;        
+            background-color: rgba(208, 219, 231, 0.1);
+            color: #fff;
+            padding: 10px;
+            border-bottom-right-radius: 80px;
+            border-top-left-radius: 80px;
+            box-shadow: 0 0 10px rgb(1, 250, 250);
+            flex: 1 1 300px;
+            transition: transform 0.3s ease;
+            animation: fadeInUp 0.5s ease-out;
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+           
+           
+        }
+        .quote p{
+            font-family:fantasy;
+            font-size: 18px;
+            margin-left: 50px;
+        }
+
+
+
+        footer {
+            background-color: #5a0d1a;
+            color: #ddd;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000; 
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .welcome-container {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .welcome-message {
+            font-size: 18px;
+            color: #ddd;
+            overflow: hidden; 
+            white-space: nowrap;
+            border-right: .10em solid #aaa; 
+            animation: typing 10s steps(30, end) infinite,
+            blink-caret .5s step-end infinite; 
+        }
+
+        @keyframes typing {
+            from {
+                width: 0; 
+            }
+            to {
+                width: 100%; 
+            }
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent; 
+            }
+            50% {
+                border-color: transparent; 
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="#welcome">Home</a></li>
+            <b>|</b>
+            <li><a href="#python">Python Projects</a></li>
+            <b>|</b>
+            <li><a href="#checkabout">About</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+<main>
+    
+    <section id="welcome">
+        <center><h2>Welcome</h2></center>
+        <div class="welcome-container">
+        
+        <center><p class="welcome-message"><b>Welcome to my portfolio website!</b></p>
+            <p>Here you'll find a showcase
+            of my work and passions.<br> Explore my projects, delve into my skills, and get to know me better. <br>I'm excited to share my journey with you!</p></center>
+    </section>
+    <br>
+    <section id="inspire">
+        <div class ="quote">
+            <p>'Hapiness can be found, even in the darkest of times, if one only remembers to trun on the light. if one only remembers to trun on the light'<br>"~Harry Potter~"</p>
+        </div>
+    </section>     <br>
+ 
+    <h2 id = "python">Python Projects</h2>
+
+    <section id="portfolio" class="portfolio">
+        <div class="item">
+            <h3>GUI Bot</h3>
+            <p><strong>Key Features:</strong> 
+                <br><strong>Upgradable JSON Dataset:</strong> Easily expand and customize conversation topics by upgrading the JSON dataset.
+                <br><strong>Color Customization:</strong> Personalize the interface with customizable colors to suit your aesthetic preferences.
+                <br><strong>Intuitive GUI:</strong> User-friendly interface desinged with tkinter for seamless navigation and interaction.
+                <br><strong>Dialogues:</strong> Engage users with responsive dialogues tailored to enhance user experience.</p>
+            
+            <div class="tabs">
+                <a href="#" class="details-btn" data-target="gui">Details</a>
+                <a href="#">Code</a>
+               
+            </div>
+        </div>
+
+        <div class="item">
+            <h3>EagleEye</h3>
+            <p><strong>Key Features:</strong> 
+                <br><strong>Basic Web Navigation:</strong> Navigate seamlessly through web pages using intuitive navigation controls.
+                <br><strong>URL Input:</strong> Enter URLs directly for quick access to favorite websites.
+                <br><strong>Tabbed Browsing:</strong> Open multiple tabs simultaneously to manage multiple web pages efficiently.
+                <br><strong>Minimalist Interface:</strong> Clean and straightforward interface desinged for ease of use.</p>
+            
+            <div class="tabs">
+                <a href="#" class="details-btn" data-target="eye">Details</a>
+                <a href="#">Code</a>
+               
+            </div>
+        </div>
+        <div class="item">
+            <h3>File Finder Program</h3>
+            
+            <p><strong>Key Features:</strong> 
+                <br><strong>Keyword Search:</strong> Enter a filename to quickly find relevant files.
+                <br><strong>Selection:</strong> Choose a specific directory to find.</p>
+            
+            <div class="tabs">
+                <a href="#" class="details-btn" data-target="find">Details</a>
+                <a href="https://github.com/vanu888/File-FInder">Code</a>
+                
+            </div>
+            
+        </div>
+        
+        
+        
+       
+    </section>
+    <div id="checkabout"></div>
+    <br>
+    <div class="tab-container">
+        <div class="tab active" data-tab="about">
+            About
+            <div class="underline"></div>
+        </div>
+        <div class="tab" data-tab="contact">
+            Contact
+            <div class="underline"></div>
+        </div>
+    </div>
+    
+    <div class="tab-content">
+        <div id="about" class="tab-pane active">
+            <h2>About Me</h2>
+            <p>I'm Vihanga Anuththara, a self-taught Python developer with a knack for web design.  
+                I love exploring new technologies and developing web applications that are user-friendly and accessible. My goal is to create meaningful digital experiences.
+                Explore my work and let's connect to bring your ideas to life!
+            </p>
+        </div>
+
+        <div id="contact" class="tab-pane">
+            <h2>Contact</h2>
+            <p>Feel free to contact me via email at <br><b><font color="white">avihanga888@gmail.com</font></b> <br>or connect with me on <b><a href="https://www.linkedin.com/in/vihanga-anuththara/">Linkdin.</a></b> <br>I'm always open to new opportunities and collaborations!</p>
+        </div>
+        
+    </div>
+    <br>
+      
+        <div class="popup" id="gui">
+            <span class="close-btn" onclick="closePopup('gui')">&times;</span>
+            <h3>GUI Bot</h3>
+            <p>Explore my Tkinter-based GUI chat bot - a simple yet effective creation that facilitates engaging conversations with users.
+                Designed without NLTK, it offers a streamlined interface for seamless interaction and enjoyable user experience.</p>
+            
+            
+        </div>
+    
+        
+        <div class="popup" id="eye">
+            <span class="close-btn" onclick="closePopup('eye')">&times;</span>
+            <h3>EagleEye</h3>
+            <p>EagleEye is a simple Python-based web browser, powered by PyQt5, offers a minimalist approach to browsing the internet
+                directly from your desktop. Designed for simplicity and speed, this browser provides essential features while maintaining 
+                a lightweight footprint.
+            </p>
+            
+        </div>
+    
+        
+        <div class="popup" id="find">
+            <span class="close-btn" onclick="closePopup('find')">&times;</span>
+            <h3>File Finder Program</h3>
+            <p>Our Python-based File Finder Program provides a convenient and efficient way to locate files on your computer system.
+                Designed with simplicity, this program allows users to find files by specifying keywords.</p>
+            
+        </div>
+    
+       
+   
+</main>
+
+
+<footer>
+    <p><strong>&copy; 2024 VA_ Portfolio. All rights reserved.</strong></p>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-pane');
+    
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+    
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+    
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    });
+    
+    document.querySelectorAll('.details-btn').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-target');
+            document.getElementById(target).classList.add('active');
+        });
+    });
+
+   
+    function closePopup(popupId) {
+        document.getElementById(popupId).classList.remove('active');
+    }
+    </script>
+</body>
+</html>
