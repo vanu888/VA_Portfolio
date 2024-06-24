@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>va_portfolio</title>
+    <link rel = "stylesheet" href = "styles.css">
+    
     
     <style>
         *{
@@ -24,7 +26,6 @@
             max-width: 1200px;
             margin: 10px auto 20px auto; 
             padding: 20px;
-            
             background: linear-gradient(45deg,#3a0209,#160d5a,#083268,#3a0209);
             color: #ddd; 
             border-radius: 8px;
@@ -39,6 +40,7 @@
             border-bottom: 2px solid #dfd5d5;
             padding-bottom: 10px;
         }
+        
 
         main p {
             font-size: 16px;
@@ -142,6 +144,7 @@
             font-size: 14px;
             line-height: 1.6;
             color: #ddd; 
+            font-family:fantasy;
         }
 
         .tabs {
@@ -283,7 +286,13 @@
             margin-left: 50px;
         }
 
-
+        .end{
+            margin-bottom: 20px;
+            color: #ddd; 
+            border-bottom: 2px solid #dfd5d5;
+            padding-bottom: 10px;
+            padding-top: 20px;
+        }
 
         footer {
             background-color: #5a0d1a;
@@ -356,6 +365,8 @@
             <b>|</b>
             <li><a href="#python">Python Projects</a></li>
             <b>|</b>
+            <li><a href="#html">HTML</a></li>
+            <b>|</b>
             <li><a href="#checkabout">About</a></li>
             
         </ul>
@@ -420,16 +431,50 @@
             
             <div class="tabs">
                 <a href="#" class="details-btn" data-target="find">Details</a>
-                <a href="https://github.com/vanu888/File-FInder">Code</a>
-                
-            </div>
-            
+                <a href="https://github.com/vanu888/File-FInder">Code</a>   
+            </div> 
         </div>
-        
-        
-        
-       
     </section>
+    <br>
+    <h2 id = "html">HTML | CSS | JS</h2>
+    <br>
+
+    <div class="tabh-content-wrapper">
+        <div class="tabh-content active">
+            <h2>Light Theme Portfolio Template</h2>
+            <p><strong>Light Theme Portfolio Template is clean and minimalistic, ideal for presenting projects with a bright and refreshing appearance.</strong></p>
+            
+            <p><strong>Features:</strong>
+
+                <br>- Responsive layout for various screen sizes.
+                <br>- Popup modal for displaying project details.
+                <br>- Basic JavaScript for popup functionality.
+                <br>- Structured sections for easy navigation.
+            </p>
+            <a href="https://github.com/vanu888/portfolio-template/tree/Light-Theme">Code</a> 
+        </div>
+        <div class="tabh-content">
+            <h2>Dark Theme Portfolio Template</h2>
+            <p><strong>The Dark Theme Portfolio Template is sleek and modern, designed to showcase projects with a bold and sophisticated style.</strong></p>
+            
+            <p><strong>Features:</strong>
+
+                <br>- Responsive layout for various screen sizes.
+                <br>- Popup modal for displaying project details.
+                <br>- Basic JavaScript for popup functionality.
+                <br>- Structured sections for easy navigation.
+            </p>
+            <a href="https://github.com/vanu888/portfolio-template/tree/main">Code</a> 
+        </div>
+    </div>
+          
+    <div class="navh-buttons">
+        <button class="navh-button" onclick="previousTab()"><i class="fa fa-chevron-left"></i></button>
+        <button class="navh-button" onclick="nextTab()"><i class="fa fa-chevron-right"></i></button>
+    </div>
+    <div class ="end">
+    </div>
+    
     <div id="checkabout"></div>
     <br>
     <div class="tab-container">
@@ -442,7 +487,7 @@
             <div class="underline"></div>
         </div>
     </div>
-    
+   
     <div class="tab-content">
         <div id="about" class="tab-pane active">
             <h2>About Me</h2>
@@ -526,6 +571,36 @@
    
     function closePopup(popupId) {
         document.getElementById(popupId).classList.remove('active');
+    }
+
+    let currentTab = 0; // Track current active tab
+
+    function nextTab() {
+        // Get all tab contents
+        let tabContents = document.querySelectorAll('.tabh-content');
+
+        // Hide the current active tab
+        tabContents[currentTab].classList.remove('active');
+
+        // Calculate the next tab index
+        currentTab = (currentTab + 1) % tabContents.length;
+
+        // Show the next tab
+        tabContents[currentTab].classList.add('active');
+    }
+
+    function previousTab() {
+        // Get all tab contents
+        let tabContents = document.querySelectorAll('.tabh-content');
+
+        // Hide the current active tab
+        tabContents[currentTab].classList.remove('active');
+
+        // Calculate the previous tab index
+        currentTab = (currentTab - 1 + tabContents.length) % tabContents.length;
+
+        // Show the previous tab
+        tabContents[currentTab].classList.add('active');
     }
     </script>
 </body>
